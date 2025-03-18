@@ -44,6 +44,7 @@ namespace AQA_Graphics_CS
             Console.WriteLine();
         }
 
+        // new commit 
         private static void DisplayImage(string[,] grid, FileHeader header)
         {
             Console.WriteLine();
