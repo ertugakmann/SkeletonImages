@@ -62,31 +62,20 @@ namespace AQA_Graphics_CS
         private static void SaveImage(string[,] grid, FileHeader header)
         {
             string answer, fileName;
-            bool isOK = true;
-
-            do
-            {
+            
                 Console.WriteLine("The current title of your image is: " + header.Title);
                 Console.Write("Do you want to use this as your filename? (Y/N) ");
                 answer = Console.ReadLine();
                 if (answer == "N" || answer == "n")
                 {
                     Console.WriteLine("Enter a new filename: ");
-                    fileName = Console.ReadLine();
-
-                    if (fileName == "")
-                    {
-                        Console.WriteLine("Enter a valid file name..");
-                        isOK = false;
-                        return;
-                    }
-
+                fileName = GetFileName();
                 }
                 else
                 {
                     fileName = header.Title;
                 }
-            } while (isOK);
+          
             
             StreamWriter fileOut = new StreamWriter(fileName + ".txt");
             fileOut.WriteLine(header.Title);
@@ -99,6 +88,25 @@ namespace AQA_Graphics_CS
                 fileOut.WriteLine();
             }
             fileOut.Close();
+        }
+
+        private static string GetFileName()
+        {
+            string fileName;
+           
+            do
+            {
+                fileName = Console.ReadLine();
+
+                if (fileName == "")
+                {
+                    Console.Write("Enter a valid file name : ");
+                }
+
+            } while (fileName == "");
+
+            return fileName;
+
         }
 
         private static void EditImage(string[,] grid, FileHeader header)
@@ -223,7 +231,7 @@ namespace AQA_Graphics_CS
             bool fileTypeOK = false;
             string fileName, headerLine;
             Console.Write("Enter filename to load: ");
-            fileName = Console.ReadLine();
+            fileName = GetFileName();
             try
             {
                 StreamReader fileIn = new StreamReader(fileName + ".txt");
@@ -272,7 +280,7 @@ namespace AQA_Graphics_CS
         {
             string fileName;
             Console.Write("Enter filename: ");
-            fileName = Console.ReadLine();
+            fileName = GetFileName();
             if(fileName == " ")
             {
                 Console.WriteLine("Enter a valid file name...");
