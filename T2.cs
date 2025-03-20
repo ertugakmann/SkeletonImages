@@ -301,6 +301,36 @@ namespace AQA_Graphics_CS
             
         }
 
+        private static void DisplayImageMode(string[,] grid, FileHeader header)
+        {
+            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+            {
+                for (int thisCol = 0; thisCol < header.Width; thisCol++)
+                {
+                    Console.Write(grid[thisRow, thisCol]);
+                }
+                Console.WriteLine();
+            }
+          
+        }
+
+        private static void ChangeChar(string[,] grid)
+        {
+            int row = 0;
+            int col = 0;
+
+            Console.WriteLine("Enter the Row Number : ");
+            row = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the Col Number : ");
+            col = Convert.ToInt32(Console.ReadLine());
+
+            string newChar = Console.ReadLine();
+
+            grid[row, col] = newChar;
+
+        }
+
         private static void ClearGrid(string[,] grid)
         {
             for (int row = 0; row < MAX_HEIGHT; row++)
@@ -321,6 +351,7 @@ namespace AQA_Graphics_CS
             Console.WriteLine("D - Display image");
             Console.WriteLine("E - Edit image");
             Console.WriteLine("S - Save image");
+            Console.WriteLine("C - Display Menu");
             Console.WriteLine("X - Exit program");
             Console.WriteLine();
         }
@@ -365,6 +396,11 @@ namespace AQA_Graphics_CS
                 {
                     SaveImage(grid, header);
                 }
+                else if (menuOption == 'C')
+                {
+                    DisplayImageMode(grid, header);
+                    ChangeChar(grid);
+                }
                 else if (menuOption == 'X')
                 {
                     programEnd = true;
@@ -382,6 +418,8 @@ namespace AQA_Graphics_CS
                 SaveFile(grid, header);
             }
         }
+
+
 
         static void Main(string[] args)
         {
