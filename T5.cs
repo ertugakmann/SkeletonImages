@@ -44,7 +44,6 @@
 //            Console.WriteLine();
 //        }
 
-//        // new commit 
 //        private static void DisplayImage(string[,] grid, FileHeader header)
 //        {
 //            Console.WriteLine();
@@ -62,21 +61,18 @@
 //        private static void SaveImage(string[,] grid, FileHeader header)
 //        {
 //            string answer, fileName;
-
 //            Console.WriteLine("The current title of your image is: " + header.Title);
 //            Console.Write("Do you want to use this as your filename? (Y/N) ");
 //            answer = Console.ReadLine();
 //            if (answer == "N" || answer == "n")
 //            {
 //                Console.WriteLine("Enter a new filename: ");
-//                fileName = GetFileName();
+//                fileName = Console.ReadLine();
 //            }
 //            else
 //            {
 //                fileName = header.Title;
 //            }
-
-
 //            StreamWriter fileOut = new StreamWriter(fileName + ".txt");
 //            fileOut.WriteLine(header.Title);
 //            for (int row = 0; row < header.Height; row++)
@@ -88,25 +84,6 @@
 //                fileOut.WriteLine();
 //            }
 //            fileOut.Close();
-//        }
-
-//        private static string GetFileName()
-//        {
-//            string fileName;
-
-//            do
-//            {
-//                fileName = Console.ReadLine();
-
-//                if (fileName == "")
-//                {
-//                    Console.Write("Enter a valid file name : ");
-//                }
-
-//            } while (fileName == "");
-
-//            return fileName;
-
 //        }
 
 //        private static void EditImage(string[,] grid, FileHeader header)
@@ -231,7 +208,7 @@
 //            bool fileTypeOK = false;
 //            string fileName, headerLine;
 //            Console.Write("Enter filename to load: ");
-//            fileName = GetFileName();
+//            fileName = Console.ReadLine();
 //            try
 //            {
 //                StreamReader fileIn = new StreamReader(fileName + ".txt");
@@ -280,55 +257,17 @@
 //        {
 //            string fileName;
 //            Console.Write("Enter filename: ");
-//            fileName = GetFileName();
-//            if (fileName == " ")
+//            fileName = Console.ReadLine();
+//            StreamWriter fileOut = new StreamWriter(fileName + ".txt");
+//            fileOut.WriteLine(header.Title + "," + header.Width + "," + header.Height + "," + "A");
+//            for (int row = 0; row < header.Height; row++)
 //            {
-//                Console.WriteLine("Enter a valid file name...");
-//            }
-//            else
-//            {
-//                StreamWriter fileOut = new StreamWriter(fileName + ".txt");
-//                fileOut.WriteLine(header.Title + "," + header.Width + "," + header.Height + "," + "A");
-//                for (int row = 0; row < header.Height; row++)
+//                for (int column = 0; column < header.Width; column++)
 //                {
-//                    for (int column = 0; column < header.Width; column++)
-//                    {
-//                        fileOut.Write(grid[row, column]);
-//                    }
+//                    fileOut.Write(grid[row, column]);
 //                }
-//                fileOut.Close();
 //            }
-
-//        }
-
-//        private static void DisplayImageMode(string[,] grid, FileHeader header)
-//        {
-//            for (int thisRow = 0; thisRow < header.Height; thisRow++)
-//            {
-//                for (int thisCol = 0; thisCol < header.Width; thisCol++)
-//                {
-//                    Console.Write(grid[thisRow, thisCol]);
-//                }
-//                Console.WriteLine();
-//            }
-
-//        }
-
-//        private static void ChangeChar(string[,] grid)
-//        {
-//            int row = 0;
-//            int col = 0;
-
-//            Console.WriteLine("Enter the Row Number : ");
-//            row = Convert.ToInt32(Console.ReadLine());
-
-//            Console.WriteLine("Enter the Col Number : ");
-//            col = Convert.ToInt32(Console.ReadLine());
-
-//            string newChar = Console.ReadLine();
-
-//            grid[row, col] = newChar;
-
+//            fileOut.Close();
 //        }
 
 //        private static void ClearGrid(string[,] grid)
@@ -351,8 +290,7 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("C - Display Menu");
-//            Console.WriteLine("F - Swap Chars");
+//            Console.WriteLine("C - Convert File");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -399,12 +337,7 @@
 //                }
 //                else if (menuOption == 'C')
 //                {
-//                    DisplayImageMode(grid, header);
-//                    ChangeChar(grid);
-//                }
-//                else if (menuOption == 'F')
-//                {
-//                    FlipChars(grid, header);
+//                    ConvertFileFormat(grid, header);
 //                }
 //                else if (menuOption == 'X')
 //                {
@@ -424,33 +357,59 @@
 //            }
 //        }
 
-//        private static void FlipChars(string[,] grid, FileHeader header)
+//        private static void ConvertFileFormat(string[,] grid, FileHeader header)
 //        {
-//            string firstChar = GetCharToFlip("first");
-//            string secondChar = GetCharToFlip("second");
+//            string headerLine;
+//            int widthCount = 0;
+//            int maxLineLength = 0;
+//            int lineCount = 0;
 
-//            for (int col = 0; col < header.Height; col++)
+//            Console.Write("Enter a File Name : ");
+//            string fileName = Console.ReadLine();
+
+//            StreamReader fileIn = new StreamReader(fileName + ".txt");
+          
+//            headerLine = fileIn.ReadLine(); // reads the first line of the text
+
+            
+
+//            string text = "";
+           
+
+
+//            for (int i = 0; i < header.Height; i++)
 //            {
-//                for (int row = 0; row < header.Width; row++)
+//                lineCount++;
+//                widthCount = 0;
+//                for (int j = 0; j < header.Width; j++)
 //                {
-//                    if (grid[col, row] == firstChar)
-//                    {
-//                        grid[col, row] = secondChar;
-//                    }
-//                    else if (grid[col, row] == secondChar)
-//                    {
-//                        grid[col, row] = firstChar;
-//                    }
+//                    widthCount++;
+                  
+//                }
+//                if (widthCount > maxLineLength)
+//                {
+//                    maxLineLength = widthCount;
 //                }
 //            }
-//        }
 
-//        private static string GetCharToFlip(string many)
-//        {
-//            Console.Write($"Enter the {many} char : ");
-//            string manyChar = Console.ReadLine();
 
-//            return manyChar;
+
+
+//            string newHeaderLine = $"{headerLine}, {widthCount}, {lineCount}";
+
+
+//            //writer.WriteLine(newHeaderLine + "A");
+//            //writer.WriteLine(fileIn.ToString());
+
+
+//            using (StreamWriter writer = new StreamWriter("out1.txt"))
+//            {
+//                writer.WriteLine(newHeaderLine);
+//                while (!fileIn.EndOfStream)
+//                {
+//                    writer.Write(fileIn.ReadLine());
+//                }
+//            }
 //        }
 
 //        static void Main(string[] args)
