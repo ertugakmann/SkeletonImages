@@ -290,7 +290,6 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("C - Convert File");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -335,10 +334,6 @@
 //                {
 //                    SaveImage(grid, header);
 //                }
-//                else if (menuOption == 'C')
-//                {
-//                    ConvertFileFormat();
-//                }
 //                else if (menuOption == 'X')
 //                {
 //                    programEnd = true;
@@ -355,38 +350,6 @@
 //            {
 //                SaveFile(grid, header);
 //            }
-//        }
-
-//        private static void ConvertFileFormat()
-//        {
-//            string fileName = "";
-//            Console.WriteLine("Enter the file name");
-//            fileName = Console.ReadLine() + ".txt";
-//            StreamReader reader = new StreamReader(fileName);
-//            string firstLine = "", secondLine = "";
-//            string currentLine = "";
-//            int width = 0, height = 0;
-
-//            firstLine = reader.ReadLine();  // reads in the first line of text
-//            while (!reader.EndOfStream)
-//            {
-//                currentLine = reader.ReadLine();
-//                // get the lenth of current line
-//                width = currentLine.Length;
-//                // add current line to secondLine
-//                secondLine = secondLine + currentLine;
-//                // add 1 to count
-//                height++;
-//            }
-//            reader.Close();
-//            StreamWriter writer = new StreamWriter("New" + fileName);
-
-//            // format first line and write to text file
-//            firstLine = $"{firstLine},{width},{height},A";
-//            writer.WriteLine(firstLine);
-//            // write second line to text file 
-//            writer.WriteLine(secondLine);
-//            writer.Close();
 //        }
 
 //        static void Main(string[] args)
